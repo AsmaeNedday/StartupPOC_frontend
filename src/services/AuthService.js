@@ -10,4 +10,4 @@ export class AuthService {
     }
 }
 
-export default new MobilityService();
+export default new AuthService();
