@@ -84,15 +84,16 @@ export default {
 
 
             // try {
-            //     let user = await axios.get(`/auth/info/${token.username}`)
-            //     commit("SET_EMAIL_CONFIRM", user.data.enabled)
-            //     commit('SET_USER', user.data)
-            //     commit('SET_ROLE', user.data.role.label)
+            // let user = await axios.get(`/auth/info`)
+            // console.log(user);
+            // commit("SET_EMAIL_CONFIRM", user.data.enabled)
+            // commit('SET_USER', user.data)
+            // commit('SET_ROLE', user.data.role.label)
             // } catch (error) {
-            //     commit('SET_TOKEN', null)
-            //     commit('SET_USER', null)
-            //     commit('SET_ROLE', null)
-            //     console.log(error);
+            // commit('SET_TOKEN', null)
+            // commit('SET_USER', null)
+            // commit('SET_ROLE', null)
+            // console.log(error);
             // }
 
         }
