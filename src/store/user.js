@@ -18,10 +18,16 @@ export default {
 
     actions: {
         getUsers({ commit }) {
-            //axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
             return axios.get("/v1/users").then((res) => {
                 commit("SET_USERS", res.data)
             });
+        },
+
+        async deleteUser( {dispatch}, idUser) {
+              await axios.get(`/v1/users/disable/${idUser}`)
+                .catch(function (error) {
+                console.log(error);});
+              return dispatch("getUsers");
         }
     }
 }

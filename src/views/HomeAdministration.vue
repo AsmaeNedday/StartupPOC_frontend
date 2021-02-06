@@ -1,6 +1,6 @@
 <template>
   <div class="users">
-    <UsersList :users="users"></UsersList>
+    <UsersList :users="users" @delete="delete_user" @edit="edit_user"></UsersList>
   </div>
 </template>
 
@@ -17,8 +17,18 @@ name: "HomeAdministration",
   },
   methods: {
     ...mapActions({
-      getUsers: "user/getUsers"
+      getUsers: "user/getUsers",
+      deleteUser: "user/deleteUser"
     }),
+    delete_user(id,index){
+      if(confirm("are you sure "))
+      {
+        this.deleteUser(id);
+        console.log(index);
+        this.users.splice(index, 1);
+        }
+    },
+    edit_user(id){console.log(id);},
   },
   created(){
     this.getUsers();

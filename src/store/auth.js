@@ -83,7 +83,7 @@ export default {
                 return;
 
 
-            // try {
+
             //     let user = await axios.get(`/auth/info/${token.username}`)
             //     commit("SET_EMAIL_CONFIRM", user.data.enabled)
             //     commit('SET_USER', user.data)
