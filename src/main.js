@@ -14,8 +14,9 @@ const options = {
   confirmButtonColor: '#41b882',
   cancelButtonColor: '#ff7674',
 };
-Vue.use(VueSweetalert2,options);
-store.dispatch('auth/attempt', localStorage.getItem('token'))
+Vue.use(VueSweetalert2, options);
+
+store.dispatch('auth/attempt', { authenticationToken: localStorage.getItem('token'), username: localStorage.getItem('username') })
   .then(() => {
     new Vue({
       router,

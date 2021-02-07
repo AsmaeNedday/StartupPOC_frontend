@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import HomeAdministration from "@/views/HomeAdministration";
+import store from '@/store';
 
 
 Vue.use(VueRouter)
@@ -12,7 +13,8 @@ Vue.use(VueRouter)
 const routes = [{
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+
     },
     {
         path: '/about',
@@ -32,7 +34,16 @@ const routes = [{
     {
         path: '/administration',
         name: 'Administration',
-        component: HomeAdministration
+        component: HomeAdministration,
+        beforeEnter: (to, from, next) => {
+            if (store.getters['auth/getrole'] != "EMPLOYEE" && !store.getters['auth/authenticated']) {
+                return next({
+                    // will put a vue with You don't have the STUDENT ROLE to access
+                    name: 'Forbidden'
+                })
+            }
+            next();
+        }
     },
 ]
 
