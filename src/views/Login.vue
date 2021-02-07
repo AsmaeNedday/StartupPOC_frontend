@@ -84,6 +84,7 @@ export default {
           console.log(this.homeRedirection);
           this.$router.replace({
             name: this.homeRedirection,
+
           });
         })
         .catch((err) => {

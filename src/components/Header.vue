@@ -2,12 +2,14 @@
   <div class="header">
     <v-toolbar dark prominent>
       <v-toolbar-title class="left-items">
-        <router-link class="router-link" to="/"
-          >Link 1</router-link
+        <!--if role admin -->
+        <router-link class="router-link" to="/administration"
+          >Users</router-link
         >
-        <router-link class="router-link" to="/"
-          >Link 2</router-link
+        <router-link class="router-link" to="/administration/add"
+          >ADD</router-link
         >
+
       </v-toolbar-title>
 
       <v-spacer></v-spacer>

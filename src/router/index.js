@@ -6,6 +6,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import HomeAdministration from "@/views/HomeAdministration";
 import store from '@/store';
+import AddUser from "@/components/user/AddUser";
+import UserInfoCard from "@/components/user/UserInfoCard";
 
 
 Vue.use(VueRouter)
@@ -44,6 +46,17 @@ const routes = [{
             }
             next();
         }
+
+    },
+    {
+        path: '/administration/add',
+        name: 'add-user',
+        component: AddUser
+    },
+    {
+        path: "/administration/users/:id",
+        name: "user-info-card",
+        component: UserInfoCard
     },
 ]
 
