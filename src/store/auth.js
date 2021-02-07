@@ -63,14 +63,20 @@ export default {
         },
 
         signOut({ commit }) {
-            return axios.get("/auth/logout").then(() => {
-                if (localStorage.getItem('token'))
+            return new Promise((resolve, reject) => {
+                if (localStorage.getItem('token') && localStorage.getItem('username')) {
                     localStorage.removeItem('token');
-                commit('SET_TOKEN', null);
-                commit('SET_USER', null);
-                commit('SET_EMAIL_CONFIRM', false)
-                commit('SET_ROLE', null)
-            });
+                    localStorage.removeItem('username')
+                    commit('SET_TOKEN', null);
+                    commit('SET_USER', null);
+                    commit('SET_EMAIL_CONFIRM', false)
+                    commit('SET_ROLE', null)
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+
+            })
         },
 
         register({ commit }, credentials) {
