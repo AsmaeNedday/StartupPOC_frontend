@@ -29,14 +29,18 @@
             label="username"
             required
         ></v-text-field>
-        <v-select
+        {{user.role}}
+        <div v-for="e in roles" :key="e.id">
+          {{e}}
+        </div>
+        <v-select return-object
             v-model="user.role"
-            item-value="id"
+            item-value="value"
             item-text="label"
             :items="roles"
             label="role"
         ></v-select>
-        <v-select
+        <v-select return-object
             v-model="user.manager"
             item-value="userId"
             item-text="fullname"
