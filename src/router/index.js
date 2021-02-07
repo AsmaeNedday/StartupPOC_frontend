@@ -5,6 +5,8 @@ import About from '../views/About.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import HomeAdministration from "@/views/HomeAdministration";
+import AddUser from "@/components/user/AddUser";
+import UserInfoCard from "@/components/user/UserInfoCard";
 
 
 Vue.use(VueRouter)
@@ -31,8 +33,18 @@ const routes = [{
     },
     {
         path: '/administration',
-        name: 'Administration',
+        name: 'administration',
         component: HomeAdministration
+    },
+    {
+        path: '/administration/add',
+        name: 'add-user',
+        component: AddUser
+    },
+    {
+        path: "/administration/users/:id",
+        name: "user-info-card",
+        component: UserInfoCard
     },
 ]
 

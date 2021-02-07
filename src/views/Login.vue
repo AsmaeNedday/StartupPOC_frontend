@@ -79,7 +79,7 @@ export default {
       this.signIn(this.User)
         .then(() => {
           this.$router.replace({
-            name: "Administration",
+            name: "administration",
           });
         })
         .catch((err) => {
