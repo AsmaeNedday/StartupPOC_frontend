@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .forbidden {
   height: 100vh;
   font-family: "montserrat", sans-serif;
@@ -27,8 +27,12 @@ export default {
 }
 .container {
   width: 100%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 50%;
+  left: 15%;
   transform: translateY(-50%);
   text-align: center;
   color: #343434;
