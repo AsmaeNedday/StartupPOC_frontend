@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import auth from './auth'
 import project from './project'
 import time from './time'
-
+import user from './user'
+import role from './role'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,8 @@ export default new Vuex.Store({
   modules: {
     auth,
     project,
-    time
+    time,
+    user,
+    role
   }
 })

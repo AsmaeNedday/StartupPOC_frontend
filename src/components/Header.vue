@@ -2,12 +2,14 @@
   <div class="header">
     <v-toolbar dark prominent>
       <v-toolbar-title class="left-items">
-        <router-link class="router-link" to="/"
-          >Link 1</router-link
+        <!--if role admin -->
+        <router-link class="router-link" to="/administration"
+          >Users</router-link
         >
-        <router-link class="router-link" to="/"
-          >Link 2</router-link
+        <router-link class="router-link" to="/administration/add"
+          >ADD</router-link
         >
+
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -60,7 +62,7 @@ export default {
     }),
   },
   mounted(){
-    console.log(this.authenticated);
+    // console.log(this.authenticated);
   }
   ,
   data() {
@@ -83,15 +85,9 @@ export default {
     logout() {
       this.signOut().then(() => {
         // console.log(this.$route.name);
-        if (this.$route.name != "Home") {
-          this.$router.replace({
-            name: "Home",
-          });
-        } else {
-          this.$router.replace({
+        this.$router.replace({
             name: "Login",
           });
-        }
       });
     },
     clicked(value) {

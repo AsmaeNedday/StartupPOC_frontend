@@ -10,13 +10,20 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 require('@/store/subscriber')
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Axios.defaults.baseURL = "http://localhost:8081/api"
+const options = {
+  confirmButtonColor: '#41b882',
+  cancelButtonColor: '#ff7674',
+};
+Vue.use(VueSweetalert2, options);
 
-store.dispatch('auth/attempt', localStorage.getItem('token'))
+store.dispatch('auth/attempt', { authenticationToken: localStorage.getItem('token'), username: localStorage.getItem('username') })
   .then(() => {
     new Vue({
       router,

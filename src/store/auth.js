@@ -7,7 +7,8 @@ export default {
         user: null,
         register: false,
         emailConfirmed: false,
-        role: null
+        role: null,
+        username: null
     },
     getters: {
         authenticated(state) {
@@ -28,6 +29,9 @@ export default {
         },
         getrole(state) {
             return state.role;
+        },
+        getUsername(state) {
+            return state.username;
         }
     },
     mutations: {
@@ -45,25 +49,34 @@ export default {
         },
         SET_ROLE(state, role) {
             state.role = role;
+        },
+        SET_USERNAME(state, username) {
+            state.username = username;
         }
     },
 
     actions: {
-        async signIn({ dispatch }, credentials) {
+        async signIn({ dispatch, commit }, credentials) {
             let response = await axios.post("/auth/login", credentials);
-            console.log(response);
-            return dispatch("attempt", response.data.authenticationToken)
+            commit("SET_USERNAME", response.data.username)
+            return dispatch("attempt", response.data)
         },
 
         signOut({ commit }) {
-            return axios.get("/auth/logout").then(() => {
-                if (localStorage.getItem('token'))
+            return new Promise((resolve, reject) => {
+                if (localStorage.getItem('token') && localStorage.getItem('username')) {
                     localStorage.removeItem('token');
-                commit('SET_TOKEN', null);
-                commit('SET_USER', null);
-                commit('SET_EMAIL_CONFIRM', false)
-                commit('SET_ROLE', null)
-            });
+                    localStorage.removeItem('username')
+                    commit('SET_TOKEN', null);
+                    commit('SET_USER', null);
+                    commit('SET_EMAIL_CONFIRM', false)
+                    commit('SET_ROLE', null)
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+
+            })
         },
 
         register({ commit }, credentials) {
@@ -74,27 +87,29 @@ export default {
 
             });
         },
-        async attempt({ commit, state }, token) {
+        async attempt({ commit, state }, data) {
 
-            if (token) {
-                commit('SET_TOKEN', token)
+            if (data != null) {
+                if (data.authenticationToken) {
+                    commit('SET_TOKEN', data.authenticationToken)
+                }
+                if (!state.token)
+                    return;
+
+                try {
+                    let user = await axios.get(`/auth/info/${data.username}`)
+                        // console.log(user);
+                    localStorage.setItem("username", data.username);
+                    commit("SET_EMAIL_CONFIRM", user.data.enabled)
+                    commit('SET_USER', user.data)
+                    commit('SET_ROLE', user.data.role.label)
+                } catch (error) {
+                    commit('SET_TOKEN', null)
+                    commit('SET_USER', null)
+                    commit('SET_ROLE', null)
+                    console.log(error);
+                }
             }
-            if (!state.token)
-                return;
-
-
-            // try {
-            //     let user = await axios.get(`/auth/info/${token.username}`)
-            //     commit("SET_EMAIL_CONFIRM", user.data.enabled)
-            //     commit('SET_USER', user.data)
-            //     commit('SET_ROLE', user.data.role.label)
-            // } catch (error) {
-            //     commit('SET_TOKEN', null)
-            //     commit('SET_USER', null)
-            //     commit('SET_ROLE', null)
-            //     console.log(error);
-            // }
-
         }
     }
 }
