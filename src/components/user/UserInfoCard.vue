@@ -31,22 +31,17 @@
         ></v-text-field>
         <v-select
             v-model="user.role"
-            item-value="user.role.id"
-            item-text="user.role.label"
-            :items="['1']"
-            label="Standard"
+            item-value="id"
+            item-text="label"
+            :items="roles"
+            label="role"
         ></v-select>
-        <v-select v-if="user.manager!=null"
-            v-model="user.manager.fullname"
-            item-value="user.manager.fullname"
-            item-text="user.manager.fullname"
+        <v-select
+            v-model="user.manager"
+            item-value="userId"
+            item-text="fullname"
             :items="managers"
-            label="Standard"
-        ></v-select>
-        <v-select v-else
-            v-model="user.manager.fullname"
-            :items="['a','b']"
-            label="Standard"
+            label="manager"
         ></v-select>
 
       </v-form>
@@ -71,22 +66,24 @@ export default {
 name: "UserInfoCard",
   data(){
   return {
-
   }},
   props: ['currentUser'],
   computed: {
     ...mapGetters({
       user: "user/GET_CURRENT_USER",
       managers: "user/GET_MANAGERS",
+      roles: "role/GET_ROLES",
 
     }),
   },
   methods: {
     ...mapActions({
-      getRoles: "role/getRoles"
     }),
+
   update_(){
+    this.$emit('update',this.user);
   },
+
   cancel_(){
     this.$emit('cancel');
   }

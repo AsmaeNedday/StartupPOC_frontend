@@ -5,7 +5,7 @@
     </v-col>
 
     <v-col  cols="6"  mt-16 md="4">
-        <UserInfoCard v-if="operation=='add'" @cancel="cancel" ></UserInfoCard>
+        <UserInfoCard v-if="operation=='add'" @cancel="cancel" @update="update" ></UserInfoCard>
     </v-col>
   </v-row>
 </template>
@@ -33,6 +33,7 @@ name: "HomeAdministration",
       getUsers: "user/getUsers",
       deleteUser: "user/deleteUser",
       getCurrentUser: "user/getCurrentUser",
+      getRoles: "role/getRoles",
     }),
     delete_user(id,index){
       this.$swal({
@@ -60,14 +61,28 @@ name: "HomeAdministration",
   },
     cancel(){
       this.operation="";
+    },
+    update(user){
+      this.$swal({
+        title: 'Are you sure you  ?',
+        text: 'your inputs will be saved',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes update it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.updateUser(user);
+          this.$swal('Deleted', 'You successfully deleted this file', 'success')
+        }
+      })
+
     }
  },
-  updateRole(){
-     this.getRoles();
-  },
   created(){
     this.getUsers();
-    this.getRoles();
     this.getRoles();
   }
 }

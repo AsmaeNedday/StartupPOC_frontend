@@ -13,6 +13,13 @@
             :items="users"
             :search="search"
         >
+          <template v-slot:[`item.manager.fullname`]="{ item }">
+            <td v-if ="item.manager"> {{ item.manager.fullname }} </td>
+            <td v-else>NONE</td>
+          </template>
+          <template v-slot:[`item.role.label`]="{ item }">
+            <v-chip  class="mr-2"> {{ item.role.label }} </v-chip>
+          </template>
           <template v-slot:[`item.role.label`]="{ item }">
             <v-chip  class="mr-2"> {{ item.role.label }} </v-chip>
           </template>
