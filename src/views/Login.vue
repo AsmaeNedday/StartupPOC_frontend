@@ -95,13 +95,13 @@ export default {
     redirectTo(home){
       switch (home) {
         case "EMPLOYEE":
-          this.homeRedirection = "Employee"
+          this.homeRedirection = "HomeEmployee"
           break;
         case "ADMIN":
-          this.homeRedirection = "Admin"
+          this.homeRedirection = "Administration"
           break;
       case "MANAGER":
-          this.homeRedirection = "Manager"
+          this.homeRedirection = "HomeManager"
           break;
         default:
           break;
