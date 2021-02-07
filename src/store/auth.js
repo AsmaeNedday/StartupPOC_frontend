@@ -8,7 +8,7 @@ export default {
         register: false,
         emailConfirmed: false,
         role: null,
-        username:null
+        username: null
     },
     getters: {
         authenticated(state) {
@@ -30,7 +30,7 @@ export default {
         getrole(state) {
             return state.role;
         },
-        getUsername(state){
+        getUsername(state) {
             return state.username;
         }
     },
@@ -50,16 +50,15 @@ export default {
         SET_ROLE(state, role) {
             state.role = role;
         },
-        SET_USERNAME(state,username){
+        SET_USERNAME(state, username) {
             state.username = username;
         }
     },
 
     actions: {
-        async signIn({ dispatch,commit }, credentials) {
+        async signIn({ dispatch, commit }, credentials) {
             let response = await axios.post("/auth/login", credentials);
-            console.log(response);
-            commit("SET_USERNAME",response.data.username)
+            commit("SET_USERNAME", response.data.username)
             return dispatch("attempt", response.data)
         },
 
@@ -84,17 +83,18 @@ export default {
         },
         async attempt({ commit, state }, data) {
 
-            if(data !=null){
+            if (data != null) {
                 if (data.authenticationToken) {
                     commit('SET_TOKEN', data.authenticationToken)
                 }
                 if (!state.token)
                     return;
-    
+
                 try {
                     let user = await axios.get(`/auth/info/${data.username}`)
-                    console.log(user);
-                    commit("SET_EMAIL_CONFIRM",user.data.enabled)
+                        // console.log(user);
+                    localStorage.setItem("username", data.username);
+                    commit("SET_EMAIL_CONFIRM", user.data.enabled)
                     commit('SET_USER', user.data)
                     commit('SET_ROLE', user.data.role.label)
                 } catch (error) {

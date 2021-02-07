@@ -62,7 +62,7 @@ export default {
     }),
   },
   mounted(){
-    console.log(this.authenticated);
+    // console.log(this.authenticated);
   }
   ,
   data() {
