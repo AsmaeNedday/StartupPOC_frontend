@@ -29,6 +29,7 @@
             label="username"
             required
         ></v-text-field>
+
         <v-select
             return-object
             v-model="user.role"

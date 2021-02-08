@@ -10,5 +10,5 @@ name:"HomeEmployee"
 }
 </script>
 
-<style>
+<style scoped>
 </style>

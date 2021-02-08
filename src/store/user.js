@@ -3,8 +3,9 @@ import axios from 'axios';
 export default {
     namespaced: true,
     state: {
-       users:[],
-       currentUser :{},
+        users: [],
+        currentUser: {},
+        usersOfManager: []
     },
     getters: {
         GET_USERS(state) {
@@ -12,6 +13,9 @@ export default {
         },
         GET_CURRENT_USER(state) {
             return state.currentUser;
+        },
+        GET_USERS_OF_MANAGER(state) {
+            return state.usersOfManager;
         },
         GET_MANAGERS(state) {
             return state.users.filter(obj => obj.role.id==2);
@@ -24,7 +28,9 @@ export default {
         SET_CURRENT_USER(state, currentUser) {
             state.currentUser = currentUser;
         },
-
+        SET_USERS_OF_MANAGER(state, users) {
+            state.usersOfManager = users;
+        }
     },
 
     actions: {
@@ -37,6 +43,11 @@ export default {
             return axios.get(`/v1/users/${idUser}`).then((res) => {
                 console.log(res);
                 commit("SET_CURRENT_USER", res.data)
+            });
+        },
+        getUsersOfManager({ commit }, idManager) {
+            return axios.get(`/v1/users/manager/${idManager}`).then((res) => {
+                commit("SET_USERS_OF_MANAGER", res.data)
             });
         },
 
