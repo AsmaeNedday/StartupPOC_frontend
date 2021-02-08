@@ -62,7 +62,7 @@ export default {
     }),
   },
   mounted(){
-    console.log(this.authenticated);
+    // console.log(this.authenticated);
   }
   ,
   data() {
@@ -85,15 +85,9 @@ export default {
     logout() {
       this.signOut().then(() => {
         // console.log(this.$route.name);
-        if (this.$route.name != "Home") {
-          this.$router.replace({
-            name: "Home",
-          });
-        } else {
-          this.$router.replace({
+        this.$router.replace({
             name: "Login",
           });
-        }
       });
     },
     clicked(value) {
