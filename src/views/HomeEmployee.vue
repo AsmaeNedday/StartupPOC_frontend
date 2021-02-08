@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TimesCalendar from '@/components/user/TimesCalendar.vue';
+import TimesCalendar from '@/components/time/TimesCalendar.vue';
 
 export default {
     name:"HomeEmployee",

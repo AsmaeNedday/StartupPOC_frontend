@@ -13,10 +13,6 @@ export default {
     mutations: {
         SET_TIMES(state, times) {
             state.times = times;
-        },
-        DELETE_TIME(state, id){
-            let index = state.times.findIndex(time => time.id == id)
-            state.times.splice(index, 1)
         }
     },
 
@@ -37,8 +33,26 @@ export default {
             //axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
             let response = await axios.delete(`/v1/times/${id}`);
             console.log(response)
-            //commit("DELETE_TIME", id)
             return dispatch("getTimes");
-        }
+        },
+        async generateMonthlyReport({ dispatch }, data) {
+            let date = data.date;
+            let id = data.userId;
+            await axios.get(`/times/${id}/${date}/export/pdf`)
+                .then((response) => {
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                var fileLink = document.createElement('a');
+
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', 'file.pdf');
+                document.body.appendChild(fileLink);
+
+                fileLink.click();
+            })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            
+
     }
 }

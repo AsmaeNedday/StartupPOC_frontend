@@ -4,61 +4,61 @@
     <v-form ref="form" class="pa-md-4" v-model="valid" lazy-validation>
       <!-- <v-form ref="form" lazy-validation> -->
       <v-text-field
-        v-model="firstname"
-        :rules="fistnameRules"
-        label="firstname"
-        required
+          v-model="firstname"
+          :rules="fistnameRules"
+          label="firstname"
+          required
       ></v-text-field>
       <v-text-field
-        v-model="lastname"
-        :rules="lastnameRules"
-        label="lastname"
-        required
+          v-model="lastname"
+          :rules="lastnameRules"
+          label="lastname"
+          required
       ></v-text-field>
       <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        label="email"
-        required
+          v-model="email"
+          :rules="emailRules"
+          label="email"
+          required
       ></v-text-field>
       <v-text-field
-        v-model="username"
-        :rules="usernameRules"
-        label="username"
-        required
+          v-model="username"
+          :rules="usernameRules"
+          label="username"
+          required
       ></v-text-field>
       <v-text-field
-        v-model="password"
-        type="password"
-        :rules="[(v) => !!v || 'password is required']"
-        label="password"
-        required
+          v-model="password"
+          type="password"
+          :rules="[(v) => !!v || 'password is required']"
+          label="password"
+          required
       ></v-text-field>
-      <v-select
-        return-object
-        v-model="role"
-        item-text="label"
-        :rules="[(v) => !!v || 'Item is required']"
-        item-value="id"
-        :items="roles"
-        label="role"
+      <!-- <v-select
+          return-object
+          v-model="role"
+          item-text="label"
+          :rules="[(v) => !!v || 'Item is required']"
+          item-value="id"
+          :items="roles"
+          label="role"
       ></v-select>
       <v-select v-if="this.currentManager!=null"
-        return-object
-        v-model="this.currentManager"
-        item-text="fullname"
-        item-value="iduser"
-        :items="managers"
-        label="manager"
+                return-object
+                v-model="this.currentManager"
+                item-text="fullname"
+                item-value="iduser"
+                :items="managers"
+                label="manager"
       ></v-select>
       <v-select v-else
-        return-object
-        v-model="manager"
-        item-text="fullname"
-        item-value="iduser"
-        :items="managers"
-        label="manager"
-      ></v-select>
+                return-object
+                v-model="manager"
+                item-text="fullname"
+                item-value="iduser"
+                :items="managers"
+                label="manager"
+      ></v-select> -->
       <!-- </v-form> -->
 
       <v-btn color="success" :disabled="!valid" small @click="add_">
@@ -75,7 +75,7 @@
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: "AddUser",
+  name: "AddEmployee",
   data(){
     return {
       lastname:'',
@@ -115,6 +115,7 @@ export default {
   },
   mounted(){
     console.log(this.currentManager);
+    console.log(this.loggedUser.userId);
   },
   methods: {
     ...mapActions({
@@ -124,17 +125,17 @@ export default {
       // console.log("wanna print")
       // console.log(this.loggedUser.userId);
       if(this.$refs.form.validate()){
-      let user = {
-        "lastname":this.lastname,
-        "firstname":this.firstname,
-        "email":this.email,
-        "username":this.username,
-        "password":this.password,
-        "roleId":this.role.id,
-        "managerId":''
-      }
-      if (this.manager!=null){user.managerId=this.manager.userId}
-      this.$emit('add', {id:this.loggedUser.userId,user});   
+        let user = {
+          "lastname":this.lastname,
+          "firstname":this.firstname,
+          "email":this.email,
+          "username":this.username,
+          "password":this.password,
+          "roleId":1,
+          "managerId":this.currentManager.userId
+        }
+        if (this.manager!=null){user.managerId=this.manager.userId}
+        this.$emit('add', {id:this.loggedUser.userId,user});
       }
     },
 

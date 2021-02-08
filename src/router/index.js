@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import TimesCalendar from '@/components/user/TimesCalendar.vue';
+import TimesCalendar from '@/components/time/TimesCalendar.vue';
 import HomeAdministration from "@/views/HomeAdministration";
 import store from '@/store';
 import AddUser from "@/components/user/AddUser";
