@@ -8,11 +8,10 @@
 import TimesCalendar from '@/components/user/TimesCalendar.vue';
 
 export default {
-name:"HomeEmployee",
-components:{
-    TimesCalendar
-}
-
+    name:"HomeEmployee",
+    components:{
+        TimesCalendar
+    }
 }
 </script>
 
