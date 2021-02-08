@@ -13,7 +13,7 @@ export default {
     mutations: {
         SET_TIMES(state, times) {
             state.times = times;
-        },
+        }
     },
 
     actions: {
@@ -26,6 +26,13 @@ export default {
             //axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
             let response = await axios.post("/v1/times", time);
             console.log(response);
+            return dispatch("getTimes");
+        },
+        async deleteTime({dispatch}, id){
+            //console.log("this is the id" + id)
+            //axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+            let response = await axios.delete(`/v1/times/${id}`);
+            console.log(response)
             return dispatch("getTimes");
         },
         async generateMonthlyReport({ dispatch }, data) {
@@ -45,8 +52,8 @@ export default {
                 .catch(function(error) {
                     console.log(error);
                 });
-            return dispatch("getTimes");
-        }
+                return dispatch("getTimes");
+            },
 
     }
 }
