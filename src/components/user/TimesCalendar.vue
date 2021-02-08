@@ -25,18 +25,18 @@
         <b-button block type="submit" class="btn btn-poc" variant="dark">Add time</b-button>
 
       </b-form>
-      <div id="delete">
+      <div id="delete" :key="componentKey">
         <h6> Times list</h6>
         <p>Select a time and click on "delete time" to delete it </p>
         <v-card class="mx-auto" max-width="300" tile :key="componentKey">
             <v-list dense  style="max-height: 70%" class="overflow-y-auto">
             <v-subheader>Times</v-subheader>
             <v-list-item-group v-model="selectedTime" color="primary">
-                <v-list-item v-for="(item, i) in events" :key="i">
+                <v-list-item v-for="item in times" :key="item.id">
                 <v-list-item-content> 
-                    <v-list-item-title>{{ item.data}} : <br>
-                        {{item.from}} <br>
-                        {{item.to}}</v-list-item-title>
+                    <v-list-item-title>{{ item.project.title}} : <br>
+                        {{item.dateStart}} <br>
+                        {{item.dateEnd}}</v-list-item-title>
                 </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>
@@ -75,6 +75,7 @@ Vue.use(Kalendar)
             dateStart:'',
             dateEnd:'',
             projectId:'',
+            username:'',
         },
         events:[],
         calendar_settings: {
@@ -84,7 +85,7 @@ Vue.use(Kalendar)
         scrollToNow: true,
         start_day: new Date().toISOString(),
         read_only: false,
-        day_starts_at: 8,
+        day_starts_at: 0,
         day_ends_at: 24,
         overlap: true,
         hide_dates: ['2019-10-31'], // Spooky
@@ -96,27 +97,24 @@ Vue.use(Kalendar)
     computed: {
         ...mapGetters({
         projects: "project/GET_PROJECTS",
-        times: "time/GET_TIMES"
-        }),
-    },
-    mounted(){
-        this.updateTimes();
+        times: "time/GET_TIMES",
+        user: "auth/user",
 
+        }),
     },
     methods: {
         ...mapActions({
         getProjects: "project/getProjects",
         getTimes: "time/getTimes",
-        createTime: "time/createTime"
+        createTime: "time/createTime",
         }),
 
-        async updateTimes(){
-            this.getTimes();
+        updateTimes(){
             this.events = [];
             for(let time of this.times){
                 this.events.push(
                 {
-                    from: new Date(time.dateStart),
+                    from: time.dateStart,
                     to: time.dateEnd,
                     data: time.project.title
                 },
@@ -127,26 +125,17 @@ Vue.use(Kalendar)
         },
 
         onSubmit: function() {
-        
         this.timeRequest.dateStart = this.form.dateStart,
         this.timeRequest.dateEnd = this.form.dateEnd,
         this.timeRequest.projectId = this.form.project,
+        this.timeRequest.username = this.user.username,
         console.log(this.timeRequest)
-        this.createTime(this.timeRequest).catch((err) => {
-                        this.Error.isError = true;
-                        this.Error.Description = err.response.data;
-                        });
-
-            /*let event = {
-                from: this.form.dateStart,
-                to: this.form.dateEnd,
-                data: this.projects[this.form.project - 1].title,
-            },
-            this.events.push(event)*/
+        this.createTime(this.timeRequest)
         this.updateTimes();
         this.componentKey += 1
         },
         deleteTime(selected){
+            console.log(selected)
             this.events.splice(this.events.indexOf(selected), 1);
             this.componentKey += 1
         }
@@ -154,6 +143,7 @@ Vue.use(Kalendar)
     created(){
         this.getProjects();
         this.getTimes();
+        this.updateTimes();
   }
   }
 </script>
