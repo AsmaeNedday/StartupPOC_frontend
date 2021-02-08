@@ -68,7 +68,7 @@
   </v-container>
 </template>
 <script>
-import UsersList from "@/components/user/UsersList";
+// import UsersList from "@/components/user/UsersList";
 import ProjectsList from "@/components/project/ProjectsList";
 import EmployeesList from "@/components/user/EmployeesList";
 import { mapActions, mapGetters } from "vuex";
@@ -86,7 +86,7 @@ name: "HomeManager",
       section:"list"
     }
   },
-  components: {UserInfoCard, EmployeesList,AddEmployee,AddProject, SelectTime},
+  components: {UserInfoCard, EmployeesList,AddEmployee,AddProject, SelectTime,ProjectsList},
   computed: {
     ...mapGetters({
       users: "user/GET_USERS_OF_MANAGER",
