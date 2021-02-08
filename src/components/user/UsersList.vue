@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "UsersList",
   data() {
@@ -52,6 +54,10 @@ export default {
   props: ['users'],
 
   computed: {
+      ...mapGetters({
+        loggedUser :"auth/user"
+
+      }),
     items: function () {
       return this.users;
     }
