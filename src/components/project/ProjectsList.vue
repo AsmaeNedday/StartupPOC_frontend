@@ -7,10 +7,10 @@
           single-line
           hide-details
       ></v-text-field>
-        <v-card-title>List of users</v-card-title>
+        <v-card-title>List of projects</v-card-title>
         <v-data-table
             :headers="headers"
-            :items="users"
+            :items="projects"
             :search="search"
         >
           <template v-slot:[`item.manager.fullname`]="{ item }">
@@ -18,8 +18,7 @@
             <td v-else>NONE</td>
           </template>
           <template v-slot:[`item.role.label`]="{ item }">
-            <v-chip v-if ="item.role"  class="mr-2"> {{ item.role.label }} </v-chip>
-            <v-chip v-else>NONE</v-chip>
+            <v-chip  class="mr-2"> {{ item.role.label }} </v-chip>
           </template>
           <!-- <template v-slot:[`item.role.label`]="{ item }">
             <v-chip  class="mr-2"> {{ item.role.label }} </v-chip>
@@ -35,25 +34,21 @@
 
 <script>
 export default {
-  name: "UsersList",
+  name: "ProjectsList",
   data() {
     return {
       search: '',
       headers: [
-        {text: 'Lastname', align: 'start', sortable: false, value: 'lastname'},
-        {text: 'Firstname', align: 'start', sortable: false, value: 'firstname'},
-        {text: 'Email', align: 'start', sortable: false, value: 'email'},
-        {text: 'Role', align: 'start', sortable: false, value: 'role.label'},
-        {text: 'Manager', align: 'start', sortable: false, value: 'manager.fullname'},
-        { text: "Actions", value: "actions", sortable: false },
+        {text: 'Title', align: 'start', sortable: false, value: 'title'},
+        {text: 'Description', align: 'start', sortable: false, value: 'description'},
       ],
     }
   },
-  props: ['users'],
+  props: ['projects'],
 
   computed: {
     items: function () {
-      return this.users;
+      return this.projects;
     }
   },
   methods:{

@@ -2,7 +2,7 @@
   <div class="home">
     <div class="homeLeft">
       <h2>Welcome to the POC startup project</h2>
-      <p>Administrate your employees, your projects and more </p>
+      <p>Administrate your employees, your projects and more ... </p>
     </div>
     <div class="homeRight">
       <img src="../assets/POC.gif" alt="img" />
@@ -38,6 +38,6 @@ export default {
 .homeLeft {
   position: absolute;
   top: 40%;
-  left: 30%;
+  left: 20%;
 }
 </style>

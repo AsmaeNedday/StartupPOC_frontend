@@ -16,19 +16,34 @@
           <v-icon>mdi-folder-plus</v-icon></v-btn
         >
       </v-col>
+      <v-col>
+        <v-btn class="ma-2" @click="section = 'list-project'" block>
+          <v-icon>mdi-list-status</v-icon></v-btn
+        >
+      </v-col>
     </v-row>
 
     <v-row v-if="section == 'list'" class="pa-md-4">
       <v-col cols="12" sm="6" mt-16 md="8">
         <UsersList :users="users" @delete="delete_user" @edit="edit_user" />
       </v-col>
-
+     
       <v-col cols="6" mt-16 md="4">
         <UserInfoCard
           v-if="operation == 'add'"
           @cancel="cancel"
           @update="update"
         ></UserInfoCard>
+      </v-col>
+    </v-row>
+    <v-row v-if="section == 'list-project'" class="pa-md-4">
+       <v-col cols="12" sm="6" mt-16 md="8">
+        <ProjectsList
+          :projects="projects"
+          @delete="delete_user"
+          @edit="edit_user"
+        />
+        <!-- <UsersList :users="users" @delete="delete_user" @edit="edit_user" /> -->
       </v-col>
     </v-row>
     <v-row v-if="section == 'add'" class="pa-md-4">
@@ -38,13 +53,18 @@
     </v-row>
     <v-row v-if="section == 'addProject'" class="pa-md-4">
       <v-col cols="12" sm="6" mt-16 md="8">
-        <AddProject @add="add_user" :currentManager="this.manager" />
+        <AddProject
+          @add="add_user"
+          @addProject="add_project"
+          :currentManager="this.manager"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
 import UsersList from "@/components/user/UsersList";
+import ProjectsList from "@/components/project/ProjectsList";
 import { mapActions, mapGetters } from "vuex";
 import UserInfoCard from "@/components/user/UserInfoCard";
 import AddUser from "@/components/user/AddUser";
@@ -59,13 +79,14 @@ name: "HomeManager",
       section:"list"
     }
   },
-  components: {UserInfoCard, UsersList,AddUser,AddProject},
+  components: {UserInfoCard, UsersList,AddUser,AddProject,ProjectsList},
   computed: {
     ...mapGetters({
       users: "user/GET_USERS_OF_MANAGER",
       currentUser: "user/GET_CURRENT_USER",
       roles: "role/GET_ROLES",
-      manager:"auth/user"
+      manager:"auth/user",
+      projects:"project/GET_PROJECTS"
     }),
   },
   methods: {
@@ -78,6 +99,8 @@ name: "HomeManager",
       getUsersOfManager:"user/getUsersOfManager",
       updateUser: "user/updateUser",
       addUser: "user/addUser",
+      addProject:"project/addProject",
+      getProjects:"project/getProjects"
     }),
     delete_user(id,index){
       this.$swal({
@@ -104,6 +127,13 @@ name: "HomeManager",
       this.section="list";
       this.$swal("Saved", "user saved with success", "success");
     },
+    add_project(project,username){
+      
+      this.addProject(project,username);
+      this.section="list-project";
+      this.$swal("Saved", "project saved with success", "success");
+    }
+    ,
     edit_user(id){
       this.operation="add";
       console.log(id);
@@ -135,6 +165,7 @@ name: "HomeManager",
     this.getUsers();
     this.getRoles();
     this.getUsersOfManager(this.manager.userId);
+    this.getProjects();
     // console.log(this.manager.role.id);
   }
 }

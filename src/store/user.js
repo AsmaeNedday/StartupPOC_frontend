@@ -75,7 +75,6 @@ export default {
                     console.log(error);
                 });
             return dispatch("getUsers");
-            // console.log(dispatch);
         }
     }
 }
