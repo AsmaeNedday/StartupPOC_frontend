@@ -1,69 +1,70 @@
 <template>
-  <div class="submit-form mt-4 mx-auto">
-    <p class="headline">Add User</p>
-    <div v-if="!submitted">
+  <v-card>
+    <v-card-title>
+     Add user
+    </v-card-title>
+    <v-form ref="form" class="pa-md-4" lazy-validation>
       <v-form ref="form" lazy-validation>
         <v-text-field
-            v-model="user.firstname"
+            v-model="firstname"
             :rules="[(v) => !!v || 'firstname is required']"
             label="firstname"
             required
         ></v-text-field>
         <v-text-field
-            v-model="user.lastname"
+            v-model="lastname"
             :rules="[(v) => !!v || 'lastname is required']"
             label="lastname"
             required
         ></v-text-field>
         <v-text-field
-            v-model="user.email"
+            v-model="email"
             :rules="[(v) => !!v || 'email is required']"
             label="email"
             required
         ></v-text-field>
         <v-text-field
-            v-model="user.username"
+            v-model="username"
             :rules="[(v) => !!v || 'username is required']"
             label="username"
             required
         ></v-text-field>
         <v-text-field
-            v-model="user.password"
+            v-model="password"
+            type="password"
             :rules="[(v) => !!v || 'password is required']"
             label="password"
             required
         ></v-text-field>
         <v-select
+            return-object
+            v-model="role"
+            item-text="label"
+            item-value="id"
             :items="roles"
-            label="Standard"
+            label="role"
         ></v-select>
         <v-select
+            return-object
+            v-model="manager"
+            item-text="fullname"
+            item-value="iduser"
             :items="managers"
-            label="Standard"
+            label="manager"
         ></v-select>
-
 
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="saveUser">Submit</v-btn>
-    </div>
+      <v-btn color="success" small @click="add_">
+        Save
+      </v-btn>
+      <v-btn color="error" small @click="cancel_">
+        Cancel
+      </v-btn>
+    </v-form>
 
-    <div v-else>
-      <v-card class="mx-auto">
-        <v-card-title>
-          Submitted successfully!
-        </v-card-title>
+  </v-card>
 
-        <v-card-subtitle>
-          Click the button to add new Tutorial.
-        </v-card-subtitle>
-
-        <v-card-actions>
-          <v-btn color="success" @click="newUser">Add</v-btn>
-        </v-card-actions>
-      </v-card>
-    </div>
-  </div>
 
 </template>
 
@@ -72,44 +73,55 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "AddUser",
-  data() {
+  data(){
     return {
-      user: {
-        id: null,
-        username: "",
-        lastname: "",
-        email: "",
-        password: "",
-        firstname: "",
-        roles: [],
-        managers: []
-      },
-      submitted: false,
-    };
-  },
+      lastname:'',
+      firstname:'',
+      email:'',
+      username:'',
+      role:'',
+      manager:'',
+      password:''
+
+    }},
+  props: ['currentUser'],
   computed: {
     ...mapGetters({
-      users: "user/GET_USERS",
+      managers: "user/GET_MANAGERS",
+      roles: "role/GET_ROLES",
+      loggedUser :"auth/user"
+
     }),
   },
   methods: {
     ...mapActions({
-      getUsers: "user/getUsers",
-      deleteUser: "user/deleteUser"
     }),
-    saveUser() {
+
+    add_(){
+      console.log("wanna print")
+      console.log(this.loggedUser.userId);
+      let user = {
+        "lastname":this.lastname,
+        "firstname":this.firstname,
+        "email":this.email,
+        "username":this.username,
+        "password":this.password,
+        "roleId":this.role.id,
+        "managerId":''
+      }
+      if (this.manager!=null){user.managerId=this.manager.userId}
+      this.$emit('add',user,this.loggedUser.userId);
     },
 
-    newUser() {
-      //this.submitted = false;
-      //this.tutorial = {};
-    },
+    cancel_(){
+      this.$emit('cancel');
+    }
+
   },
-};
+
+}
 </script>
 
-<style>
-.submit-form {
-  max-width: 300px;
-}
+<style scoped>
+
 </style>
