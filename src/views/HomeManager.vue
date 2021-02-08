@@ -20,7 +20,7 @@
 
     <v-row v-if="section == 'list'" class="pa-md-4">
       <v-col cols="12" sm="6" mt-16 md="8">
-        <UsersList :users="users" @delete="delete_user" @edit="edit_user" />
+        <EmployeesList :users="users" @delete="delete_user" @edit="edit_user"  @selectTime="selectTime" />
       </v-col>
 
       <v-col cols="6" mt-16 md="4">
@@ -29,11 +29,16 @@
           @cancel="cancel"
           @update="update"
         ></UserInfoCard>
+        <SelectTime
+            v-if="operation == 'select_time'"
+            @generate="generateReport"
+            @cancel="cancel"
+        ></SelectTime>
       </v-col>
     </v-row>
     <v-row v-if="section == 'add'" class="pa-md-4">
       <v-col cols="12" sm="6" mt-16 md="8">
-        <AddUser @add="add_user" :currentManager="this.manager" />
+        <AddEmployee @add="add_user" :currentManager="this.manager" />
       </v-col>
     </v-row>
     <v-row v-if="section == 'addProject'" class="pa-md-4">
@@ -44,11 +49,12 @@
   </v-container>
 </template>
 <script>
-import UsersList from "@/components/user/UsersList";
+import EmployeesList from "@/components/user/EmployeesList";
 import { mapActions, mapGetters } from "vuex";
 import UserInfoCard from "@/components/user/UserInfoCard";
-import AddUser from "@/components/user/AddUser";
-import AddProject from "@/components/user/AddProject";
+import AddEmployee from "@/components/user/AddEmployee";
+import AddProject from "@/components/project/AddProject";
+import SelectTime from "@/components/time/SelectTime";
 
 
 export default {
@@ -59,7 +65,7 @@ name: "HomeManager",
       section:"list"
     }
   },
-  components: {UserInfoCard, UsersList,AddUser,AddProject},
+  components: {UserInfoCard, EmployeesList,AddEmployee,AddProject, SelectTime},
   computed: {
     ...mapGetters({
       users: "user/GET_USERS_OF_MANAGER",
@@ -78,6 +84,7 @@ name: "HomeManager",
       getUsersOfManager:"user/getUsersOfManager",
       updateUser: "user/updateUser",
       addUser: "user/addUser",
+      generateMonthlyReport: "time/generateMonthlyReport",
     }),
     delete_user(id,index){
       this.$swal({
@@ -109,8 +116,18 @@ name: "HomeManager",
       console.log(id);
       this.getCurrentUser(id);
   },
+    selectTime(){
+      this.operation="select_time";
+    },
     cancel(){
       this.operation="";
+    },
+    generateReport(date){
+      console.log(date);
+      console.log(this.currentUser.userId);
+      let data = {"userId": this.currentUser.userId,"date": date}
+      this.generateMonthlyReport(data);
+
     },
     update(user){
       this.$swal({
@@ -128,14 +145,12 @@ name: "HomeManager",
           this.$swal('Deleted', 'You successfully deleted this file', 'success')
         }
       })
-
     }
  },
   created(){
     this.getUsers();
     this.getRoles();
     this.getUsersOfManager(this.manager.userId);
-    // console.log(this.manager.role.id);
   }
 }
 </script>

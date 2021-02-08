@@ -27,6 +27,26 @@ export default {
             let response = await axios.post("/v1/times", time);
             console.log(response);
             return dispatch("getTimes");
+        },
+        async generateMonthlyReport({ dispatch }, data) {
+            let date = data.date;
+            let id = data.userId;
+            await axios.get(`/times/${id}/${date}/export/pdf`)
+                .then((response) => {
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                var fileLink = document.createElement('a');
+
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', 'file.pdf');
+                document.body.appendChild(fileLink);
+
+                fileLink.click();
+            })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            return dispatch("getTimes");
         }
+
     }
 }

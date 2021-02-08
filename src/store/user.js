@@ -67,15 +67,11 @@ export default {
             return dispatch("getCurrentUser", user.userId);
         },
         async addUser({ dispatch }, data) {
-            console.log("inside action");
-            console.log(data.id);
-            console.log(data.user);
             await axios.post(`/v1/users/create/${data.id}`, data.user)
                 .catch(function(error) {
                     console.log(error);
                 });
             return dispatch("getUsers");
-            // console.log(dispatch);
         }
     }
 }
