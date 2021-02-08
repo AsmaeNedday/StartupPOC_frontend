@@ -52,7 +52,8 @@ export default {
                 .catch(function(error) {
                     console.log(error);
                 });
-            
+                return dispatch("getTimes");
+            },
 
     }
 }
