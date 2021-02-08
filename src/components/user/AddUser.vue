@@ -34,27 +34,31 @@
         label="password"
         required
       ></v-text-field>
-      <template v-if="this.currentManager">
-        <!-- <v-select
-          return-object
-          v-model="this.currentManager"
-          item-text="fullname"
-          item-value="iduser"
-          :items="managers"
-          label="manager"
-        ></v-select> -->
-      </template>
-      <template v-else>
-        <v-select
-          return-object
-          v-model="manager"
-          item-text="fullname"
-          item-value="iduser"
-          :items="managers"
-          label="manager"
-        ></v-select>
-      </template>
-
+      <v-select
+        return-object
+        v-model="role"
+        item-text="label"
+        :rules="[(v) => !!v || 'Item is required']"
+        item-value="id"
+        :items="roles"
+        label="role"
+      ></v-select>
+      <v-select v-if="this.currentManager!=null"
+        return-object
+        v-model="this.currentManager"
+        item-text="fullname"
+        item-value="iduser"
+        :items="managers"
+        label="manager"
+      ></v-select>
+      <v-select v-else
+        return-object
+        v-model="manager"
+        item-text="fullname"
+        item-value="iduser"
+        :items="managers"
+        label="manager"
+      ></v-select>
       <!-- </v-form> -->
 
       <v-btn color="success" :disabled="!valid" small @click="add_">

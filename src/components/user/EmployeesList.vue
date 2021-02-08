@@ -18,7 +18,8 @@
         <td v-else>NONE</td>
       </template>
       <template v-slot:[`item.role.label`]="{ item }">
-        <v-chip  class="mr-2"> {{ item.role.label }} </v-chip>
+        <v-chip v-if="item.role" class="mr-2"> {{ item.role.label }} </v-chip>
+        <v-chip v-else>NONE</v-chip>
       </template>
       <!-- <template v-slot:[`item.role.label`]="{ item }">
         <v-chip  class="mr-2"> {{ item.role.label }} </v-chip>

@@ -34,7 +34,7 @@
           label="password"
           required
       ></v-text-field>
-      <v-select
+      <!-- <v-select
           return-object
           v-model="role"
           item-text="label"
@@ -58,7 +58,7 @@
                 item-value="iduser"
                 :items="managers"
                 label="manager"
-      ></v-select>
+      ></v-select> -->
       <!-- </v-form> -->
 
       <v-btn color="success" :disabled="!valid" small @click="add_">
@@ -115,6 +115,7 @@ export default {
   },
   mounted(){
     console.log(this.currentManager);
+    console.log(this.loggedUser.userId);
   },
   methods: {
     ...mapActions({
@@ -130,8 +131,8 @@ export default {
           "email":this.email,
           "username":this.username,
           "password":this.password,
-          "roleId":this.role.id,
-          "managerId":''
+          "roleId":1,
+          "managerId":this.currentManager.userId
         }
         if (this.manager!=null){user.managerId=this.manager.userId}
         this.$emit('add', {id:this.loggedUser.userId,user});

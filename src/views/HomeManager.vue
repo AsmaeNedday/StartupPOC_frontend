@@ -53,13 +53,13 @@
     </v-row>
     <v-row v-if="section == 'add'" class="pa-md-4">
       <v-col cols="12" sm="6" mt-16 md="8">
-        <AddEmployee @add="add_user" :currentManager="this.manager" />
+        <AddEmployee @add="add_employee" :currentManager="this.manager" />
       </v-col>
     </v-row>
     <v-row v-if="section == 'addProject'" class="pa-md-4">
       <v-col cols="12" sm="6" mt-16 md="8">
         <AddProject
-          @add="add_user"
+          @add="add_employee"
           @addProject="add_project"
           :currentManager="this.manager"
         />
@@ -128,7 +128,7 @@ name: "HomeManager",
         }
       })
     },
-  add_user(user,id){
+    add_employee(user,id){
       console.log("inside home");
       console.log(id);
       this.addUser(user,id);
