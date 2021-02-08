@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import TimesCalendar from '@/components/user/TimesCalendar.vue';
 import HomeAdministration from "@/views/HomeAdministration";
 import store from '@/store';
 import AddUser from "@/components/user/AddUser";
@@ -14,6 +15,7 @@ import Forbidden from "../views/Forbidden.vue";
 
 
 Vue.use(VueRouter)
+
 
 const routes = [{
         path: '/',
@@ -94,6 +96,11 @@ const routes = [{
         path: "/administration/users/:id",
         name: "user-info-card",
         component: UserInfoCard
+    },
+    {
+      path: '/cal',
+      name: 'TimesCalendar',
+      component: TimesCalendar
     },
 ]
 

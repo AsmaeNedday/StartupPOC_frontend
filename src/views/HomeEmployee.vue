@@ -1,12 +1,17 @@
 <template>
   <div class="homeEmployee">
-    <h1>Home Employee page</h1>
+    <TimesCalendar/>
   </div>
 </template>
 
 <script>
+import TimesCalendar from '@/components/user/TimesCalendar.vue';
+
 export default {
-name:"HomeEmployee"
+    name:"HomeEmployee",
+    components:{
+        TimesCalendar
+    }
 }
 </script>
 
