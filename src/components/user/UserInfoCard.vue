@@ -29,17 +29,20 @@
             label="username"
             required
         ></v-text-field>
+
         <v-select
+            return-object
             v-model="user.role"
-            item-value="id"
             item-text="label"
+            item-value="id"
             :items="roles"
             label="role"
         ></v-select>
         <v-select
+            return-object
             v-model="user.manager"
-            item-value="userId"
             item-text="fullname"
+            item-value="iduser"
             :items="managers"
             label="manager"
         ></v-select>
