@@ -14,9 +14,7 @@ export default {
             return state.currentUser;
         },
         GET_MANAGERS(state) {
-            return Array.from(new Set(state.users.map(obj => { return obj.manager;})
-                .filter(obj => obj!=null)));
-
+            return state.users.filter(obj => obj.role.id==2);
         }
     },
     mutations: {
@@ -37,6 +35,7 @@ export default {
         },
         getCurrentUser({ commit }, idUser) {
             return axios.get(`/v1/users/${idUser}`).then((res) => {
+                console.log(res);
                 commit("SET_CURRENT_USER", res.data)
             });
         },
@@ -46,6 +45,21 @@ export default {
                 .catch(function (error) {
                 console.log(error);});
               return dispatch("getUsers");
+        },
+        async updateUser( {dispatch}, user) {
+            await axios.post(`/v1/users/edit`, user )
+                .catch(function (error) {
+                    console.log(error);});
+                 dispatch("getUsers");
+                 return dispatch("getCurrentUser",user.userId);
+        },
+        async addUser( {dispatch}, user, id) {
+            console.log("inside action");
+            console.log(id);
+            await axios.post(`/v1/users/create/${id}`, user )
+                .catch(function (error) {
+                    console.log(error);});
+            return dispatch("getUsers");
         }
     }
 }
