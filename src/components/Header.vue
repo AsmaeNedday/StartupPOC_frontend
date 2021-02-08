@@ -3,12 +3,12 @@
     <v-toolbar dark prominent>
       <v-toolbar-title class="left-items">
         <!--if role admin -->
-        <router-link class="router-link" to="/administration"
+        <!-- <router-link class="router-link" to="/administration"
           >Users</router-link
         >
         <router-link class="router-link" to="/administration/add"
           >ADD</router-link
-        >
+        > -->
 
       </v-toolbar-title>
 

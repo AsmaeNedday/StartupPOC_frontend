@@ -1,26 +1,65 @@
 <template>
-  <v-row class="pa-md-4">
-    <v-col  cols="12" sm="6"  mt-16 md="8">
-      <UsersList :users="users" @delete="delete_user" @edit="edit_user"/>
-    </v-col>
+  <v-container fluid>
+    <v-row class="pa-mb-2">
+      <v-col>
+        <v-btn class="ma-2" @click="section = 'list'" block
+          ><v-icon>mdi-format-list-bulleted-square</v-icon></v-btn
+        >
+      </v-col>
+      <v-col>
+        <v-btn class="ma-2" @click="section = 'add'" block>
+          <v-icon>mdi-plus</v-icon></v-btn
+        >
+      </v-col>
+      <v-col>
+        <v-btn class="ma-2" @click="section = 'addProject'" block>
+          <v-icon>mdi-folder-plus</v-icon></v-btn
+        >
+      </v-col>
+    </v-row>
 
-    <v-col  cols="6"  mt-16 md="4">
-        <UserInfoCard v-if="operation=='add'" @cancel="cancel" @update="update" ></UserInfoCard>
-    </v-col>
-  </v-row>
+    <v-row v-if="section == 'list'" class="pa-md-4">
+      <v-col cols="12" sm="6" mt-16 md="8">
+        <UsersList :users="users" @delete="delete_user" @edit="edit_user" />
+      </v-col>
+
+      <v-col cols="6" mt-16 md="4">
+        <UserInfoCard
+          v-if="operation == 'add'"
+          @cancel="cancel"
+          @update="update"
+        ></UserInfoCard>
+      </v-col>
+    </v-row>
+    <v-row v-if="section == 'add'" class="pa-md-4">
+      <v-col cols="12" sm="6" mt-16 md="8">
+        <AddUser @add="add_user" :currentManager="this.manager" />
+      </v-col>
+    </v-row>
+    <v-row v-if="section == 'addProject'" class="pa-md-4">
+      <v-col cols="12" sm="6" mt-16 md="8">
+        <AddProject @add="add_user" :currentManager="this.manager" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
 import UsersList from "@/components/user/UsersList";
 import { mapActions, mapGetters } from "vuex";
 import UserInfoCard from "@/components/user/UserInfoCard";
+import AddUser from "@/components/user/AddUser";
+import AddProject from "@/components/user/AddProject";
+
+
 export default {
 name: "HomeManager",
   data() {
     return{
-      operation:""
+      operation:"",
+      section:"list"
     }
   },
-  components: {UserInfoCard, UsersList},
+  components: {UserInfoCard, UsersList,AddUser,AddProject},
   computed: {
     ...mapGetters({
       users: "user/GET_USERS_OF_MANAGER",
@@ -36,7 +75,9 @@ name: "HomeManager",
       getCurrentUser: "user/getCurrentUser",
       getRoles: "role/getRoles",
       getManager:"auth/user",
-      getUsersOfManager:"user/getUsersOfManager"
+      getUsersOfManager:"user/getUsersOfManager",
+      updateUser: "user/updateUser",
+      addUser: "user/addUser",
     }),
     delete_user(id,index){
       this.$swal({
@@ -56,7 +97,13 @@ name: "HomeManager",
         }
       })
     },
-
+  add_user(user,id){
+      console.log("inside home");
+      console.log(id);
+      this.addUser(user,id);
+      this.section="list";
+      this.$swal("Saved", "user saved with success", "success");
+    },
     edit_user(id){
       this.operation="add";
       console.log(id);
@@ -88,10 +135,10 @@ name: "HomeManager",
     this.getUsers();
     this.getRoles();
     this.getUsersOfManager(this.manager.userId);
+    // console.log(this.manager.role.id);
   }
 }
 </script>
 
 <style scoped>
-
 </style>

@@ -18,7 +18,7 @@ export default {
             return state.usersOfManager;
         },
         GET_MANAGERS(state) {
-            return state.users.filter(obj => obj.role.id==2);
+            return state.users.filter(obj => obj.role.id == 2);
         }
     },
     mutations: {
@@ -51,26 +51,31 @@ export default {
             });
         },
 
-        async deleteUser( {dispatch}, idUser) {
-              await axios.get(`/v1/users/disable/${idUser}`)
-                .catch(function (error) {
-                console.log(error);});
-              return dispatch("getUsers");
-        },
-        async updateUser( {dispatch}, user) {
-            await axios.post(`/v1/users/edit`, user )
-                .catch(function (error) {
-                    console.log(error);});
-                 dispatch("getUsers");
-                 return dispatch("getCurrentUser",user.userId);
-        },
-        async addUser( {dispatch}, user, id) {
-            console.log("inside action");
-            console.log(id);
-            await axios.post(`/v1/users/create/${id}`, user )
-                .catch(function (error) {
-                    console.log(error);});
+        async deleteUser({ dispatch }, idUser) {
+            await axios.get(`/v1/users/disable/${idUser}`)
+                .catch(function(error) {
+                    console.log(error);
+                });
             return dispatch("getUsers");
+        },
+        async updateUser({ dispatch }, user) {
+            await axios.post(`/v1/users/edit`, user)
+                .catch(function(error) {
+                    console.log(error);
+                });
+            dispatch("getUsers");
+            return dispatch("getCurrentUser", user.userId);
+        },
+        async addUser({ dispatch }, data) {
+            console.log("inside action");
+            console.log(data.id);
+            console.log(data.user);
+            await axios.post(`/v1/users/create/${data.id}`, data.user)
+                .catch(function(error) {
+                    console.log(error);
+                });
+            return dispatch("getUsers");
+            // console.log(dispatch);
         }
     }
 }

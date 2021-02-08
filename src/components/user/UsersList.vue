@@ -26,6 +26,7 @@
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small  @click="edit_(item.userId)">mdi-pencil</v-icon>
             <v-icon small class="mr-2" @click="delete_(item.userId, items.indexOf(item))">mdi-delete</v-icon>
+            <!-- <v-icon small class="mr-2">mdi-file-pdf</v-icon> -->
           </template>
         </v-data-table>
   </v-card>

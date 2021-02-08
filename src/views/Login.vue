@@ -89,7 +89,10 @@ export default {
         })
         .catch((err) => {
           this.Error.isError = true;
-          this.Error.Description = err.response.data;
+          console.log("HERE\n");
+          console.log(err);
+          if(this.Error.isError)
+            this.Error.Description = "Username or password not matching !";
         });
     },
     redirectTo(home){
