@@ -16,7 +16,7 @@
         required
       ></v-text-field>
      
-      <!-- <v-select v-if="this.currentManager!=null"
+      <v-select v-if="this.currentManager!=null"
         return-object
         v-model="this.currentManager"
         item-text="fullname"
@@ -31,7 +31,7 @@
         item-value="iduser"
         :items="managers"
         label="manager"
-      ></v-select> -->
+      ></v-select>
       <!-- </v-form> -->
 
       <v-btn color="success" :disabled="!valid" small @click="add_">
@@ -87,10 +87,8 @@ export default {
       let project = {
         "title":this.title,
         "description":this.description,
-        "managerId":''
       }
-      if (this.manager!=null){project.managerId=this.manager.userId}
-      this.$emit('add',project);   
+      this.$emit('addProject',{project,username:this.currentManager.username});   
       }
     },
 
