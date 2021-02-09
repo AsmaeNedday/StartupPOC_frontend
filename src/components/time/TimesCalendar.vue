@@ -116,7 +116,7 @@ Vue.use(Kalendar)
     }),
     created(){
         this.getProjects();
-        this.getTimes();
+        this.getTimes(this.user.userId);
         this.updateTimes();
     },
     computed: {
