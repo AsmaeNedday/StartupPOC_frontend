@@ -7,13 +7,17 @@
 <script>
 import TimesCalendar from '@/components/time/TimesCalendar.vue';
 
+
+
 export default {
     name:"HomeEmployee",
     components:{
-        TimesCalendar
-    }
+        TimesCalendar,
+    },
+    
 }
 </script>
 
 <style scoped>
+
 </style>
