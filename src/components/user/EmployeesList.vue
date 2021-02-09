@@ -29,13 +29,13 @@
         <v-icon small class="mr-2" @click="delete_(item.userId, items.indexOf(item))">mdi-delete</v-icon>
         <!-- <v-icon small class="mr-2">mdi-file-pdf</v-icon> -->
       </template>
-      <template v-slot:[`item.report`]>
+      <template v-slot:[`item.report`]="{ item }">
         <v-btn
             color="blue-grey"
             class="white--text"
             fab
             x-small
-            @click="select_time_"
+            @click="select_time_(item.userId)"
         >
           <v-icon dark>
             mdi-cloud-download
@@ -79,7 +79,7 @@ export default {
   methods:{
     delete_(id,index){ this.$emit('delete', id,index);},
     edit_(id){this.$emit('edit', id);},
-    select_time_(){console.log("hello");this.$emit('selectTime');},
+    select_time_(id){console.log("hello");this.$emit('selectTime',id);},
   }
 
 };
