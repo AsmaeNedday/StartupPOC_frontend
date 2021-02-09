@@ -17,9 +17,9 @@ export default {
     },
 
     actions: {
-        async getTimes({ commit }) {
+        async getTimes({ commit },id) {
             //axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-            const res = await axios.get("/v1/times");
+            const res = await axios.get(`/v1/times/${id}`);
             commit("SET_TIMES", res.data);
         },
         async createTime({dispatch},time){
