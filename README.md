@@ -21,12 +21,25 @@ The project is divided into back-end and front-end part
 ## Structure
 
 - src/assets
+contains images used in the project.
+
 - src/components
+contains folders : time, project and user which reprsent respectively the calendar, projects list and users components for the logged in user.
+
 - src/plugins
+contains the vuetify plugin.
+
 - src/services
+contains the authentication service.
+
 - src/router
+contains the routes and directions to pages of the app.
+
 - src/store
+contains vuex file that retrieves state from , and reactively and efficiently updates if the store's state changes.
+
 - src/views
+contains pages for login, register, administrator home, manager home, employee home ...
 
 ## Project setup
 ```
@@ -53,5 +66,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 # StartupPOC_backend
-(https://github.com/TahaAlamiIdrissi/StartupPOC_backend)
+[StartupPOC_backend](https://github.com/TahaAlamiIdrissi/StartupPOC_backend)
 
