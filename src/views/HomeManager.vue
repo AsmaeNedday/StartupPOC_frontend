@@ -105,6 +105,7 @@ name: "HomeManager",
       getManager:"auth/user",
       getUsersOfManager:"user/getUsersOfManager",
       updateUser: "user/updateUser",
+      updateUserOfManager:"user/updateUserOfManager",
       addUser: "user/addUser",
       addProject:"project/addProject",
       getProjects:"project/getProjects",
@@ -173,8 +174,10 @@ name: "HomeManager",
         showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
-          this.updateUser(user);
-          this.$swal('Deleted', 'You successfully deleted this file', 'success')
+          console.log(user);
+          this.updateUserOfManager(user);
+          this.$swal('Updated', 'You successfully updated the user', 'success')
+          this.cancel();
         }
       })
     }
