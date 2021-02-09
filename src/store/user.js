@@ -66,6 +66,15 @@ export default {
             dispatch("getUsers");
             return dispatch("getCurrentUser", user.userId);
         },
+        async updateUserOfManager({ dispatch }, user) {
+
+            await axios.post(`/v1/users/edit`, user)
+                .catch(function(error) {
+                    console.log(error);
+                });
+            dispatch("getUsersOfManager", user.manager.userId);
+            return dispatch("getCurrentUser", user.userId);
+        },
         async addUser({ dispatch }, data) {
             await axios.post(`/v1/users/create/${data.id}`, data.user)
                 .catch(function(error) {
