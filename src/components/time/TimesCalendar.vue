@@ -194,7 +194,8 @@ Vue.use(Kalendar)
     margin-top: 3%;
 }
 #mycalendar{
-    width : 70%;
+    width : 50%;
+    margin-right: 10%;
     float: right;
 }
 #editing{

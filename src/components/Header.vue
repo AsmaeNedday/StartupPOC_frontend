@@ -1,14 +1,21 @@
 <template >
   <div class="header">
     <v-toolbar dark prominent>
+      <h3 class="logo">
+        <router-link class="routerlinklogo" to="/">POC</router-link>
+      </h3>
       <v-toolbar-title class="left-items">
+        
         <!--if role admin -->
-        <!-- <router-link class="router-link" to="/administration"
-          >Users</router-link
+        <router-link class="router-link" to="/manager-page"
+          >Manager Dash</router-link
         >
-        <router-link class="router-link" to="/administration/add"
-          >ADD</router-link
-        > -->
+        <router-link class="router-link" to="/employee-page"
+          >Employee Dash</router-link
+        >
+        <router-link class="router-link" to="/administration"
+          >Admin Dash</router-link
+        >
 
       </v-toolbar-title>
 
@@ -124,11 +131,31 @@ export default {
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
+.logo{
+  flex: 1.4;
+  filter: drop-shadow(1px 1px 2px white);
+  text-align: center;
+  margin-top: 3%;
+  transition: 0.5s ease-in;
+  cursor: pointer;
+}
+.routerlinklogo{
+  text-decoration: none;
+  color: white;
+}
+.logo:hover {
+  transform: scale(1.3);
+}
 .left-items {
   display: flex;
+  flex: 1;
   justify-content: space-between;
-  width: 25%;
+  width: 80%;
   margin-left: 15px;
+}
+.left-items h3 {
+  color: white;
+  font-size: 2em;
 }
 .right-items {
   display: flex;
