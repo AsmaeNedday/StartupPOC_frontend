@@ -1,7 +1,9 @@
 <template>
-  <v-card >
-    <v-form ref="form" class="pa-md-4" lazy-validation >
+  <v-card>
+    <v-form ref="form" class="pa-md-4" lazy-validation  >
+      <v-layout justify-center>
       <v-date-picker
+          popover-align="center"
           v-model="picker"
           type="month"
           color="black lighten-3"
@@ -9,6 +11,7 @@
           prev-icon="mdi-skip-previous"
           next-icon="mdi-skip-next"
       ></v-date-picker>
+      </v-layout>
       </v-form>
     <v-container fluid>
       <v-btn color="success" class="ma-2" small @click="generate_">
