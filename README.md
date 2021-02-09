@@ -16,7 +16,17 @@ The project is divided into back-end and front-end part
  - Vuetify 
 
 
+# StartupPOC_frontend
 
+## Structure
+
+- src/assets
+- src/components
+- src/plugins
+- src/services
+- src/router
+- src/store
+- src/views
 
 ## Project setup
 ```
@@ -43,4 +53,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 # StartupPOC_backend
+(https://github.com/TahaAlamiIdrissi/StartupPOC_backend)
 
