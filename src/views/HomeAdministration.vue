@@ -1,5 +1,5 @@
 <template>
-  <v-container   fluid >
+  <v-card outlined color="transparent"  class="spacing-playground pa-6" fluid>
     <v-row class="pa-mb-2">
       <v-col>
         <v-btn class="ma-2" @click="section='list';" block><v-icon>mdi-format-list-bulleted-square</v-icon></v-btn>
@@ -23,7 +23,7 @@
         <AddUser  @add="add_user" />
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 <script>
 import UsersList from "@/components/user/UsersList";
@@ -102,9 +102,11 @@ name: "HomeAdministration",
       }).then((result) => {
         if(result.value) {
           this.updateUser(user);
+          this.cancel();
           this.$swal('Updated', 'You successfully updated the user', 'success')
         }
       })
+
 
     }
  },
