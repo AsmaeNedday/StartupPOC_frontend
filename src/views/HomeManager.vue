@@ -116,8 +116,9 @@ name: "HomeManager",
       console.log(id);
       this.getCurrentUser(id);
   },
-    selectTime(){
+    selectTime(id){
       this.operation="select_time";
+      this.getCurrentUser(id);
     },
     cancel(){
       this.operation="";

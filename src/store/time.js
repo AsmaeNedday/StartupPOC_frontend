@@ -31,13 +31,15 @@ export default {
         async generateMonthlyReport({ dispatch }, data) {
             let date = data.date;
             let id = data.userId;
-            await axios.get(`/times/${id}/${date}/export/pdf`)
+            await axios.get(`/v1/times/${id}/date/${date}/export/pdf`, {
+                responseType: 'blob'})
                 .then((response) => {
                 var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                console.log(new Blob([response.data]));
                 var fileLink = document.createElement('a');
 
                 fileLink.href = fileURL;
-                fileLink.setAttribute('download', 'file.pdf');
+                fileLink.setAttribute('download', 'file_'+date+'.pdf');
                 document.body.appendChild(fileLink);
 
                 fileLink.click();
