@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-card outlined color="transparent"  class="spacing-playground pa-6" fluid>
     <v-row class="pa-mb-2">
       <v-col>
-        <v-btn class="ma-2" @click="section = 'list'" block
-          ><v-icon>mdi-format-list-bulleted-square</v-icon></v-btn
+        <v-btn class="ma-2" @click="section = 'list'" block >
+          <v-icon>mdi-format-list-bulleted-square</v-icon></v-btn
         >
       </v-col>
       <v-col>
@@ -23,7 +23,7 @@
       </v-col>
     </v-row>
 
-    <v-row v-if="section == 'list'" class="pa-md-4">
+    <v-row v-if="section == 'list'" class="pa-md-2">
       <v-col cols="12" sm="6" mt-16 md="8">
         <EmployeesList :users="users" @delete="delete_user" @edit="edit_user"  @selectTime="selectTime" />
       </v-col>
@@ -65,7 +65,7 @@
         />
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 <script>
 // import UsersList from "@/components/user/UsersList";
@@ -105,6 +105,7 @@ name: "HomeManager",
       getManager:"auth/user",
       getUsersOfManager:"user/getUsersOfManager",
       updateUser: "user/updateUser",
+      updateUserOfManager:"user/updateUserOfManager",
       addUser: "user/addUser",
       addProject:"project/addProject",
       getProjects:"project/getProjects",
@@ -173,8 +174,10 @@ name: "HomeManager",
         showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
-          this.updateUser(user);
-          this.$swal('Deleted', 'You successfully deleted this file', 'success')
+          console.log(user);
+          this.updateUserOfManager(user);
+          this.$swal('Updated', 'You successfully updated the user', 'success')
+          this.cancel();
         }
       })
     }

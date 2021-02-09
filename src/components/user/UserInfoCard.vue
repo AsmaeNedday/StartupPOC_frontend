@@ -30,7 +30,8 @@
             required
         ></v-text-field>
 
-        <v-select
+        <template v-if="this.loggedInUser.role.id!=2">
+          <v-select
             return-object
             v-model="user.role"
             item-text="label"
@@ -46,13 +47,17 @@
             :items="managers"
             label="manager"
         ></v-select>
+        </template>
+        <template v-else>
+
+        </template>
 
       </v-form>
 
       <v-btn color="success" small @click="update_">
         Update
       </v-btn>
-      <v-btn color="error" small @click="cancel_">
+      <v-btn style="float:right" color="error" small @click="cancel_">
         Cancel
       </v-btn>
     </v-form>
@@ -76,8 +81,11 @@ name: "UserInfoCard",
       user: "user/GET_CURRENT_USER",
       managers: "user/GET_MANAGERS",
       roles: "role/GET_ROLES",
-
+      loggedInUser:"auth/user"
     }),
+  },
+  mounted(){
+    console.log(this.loggedInUser);
   },
   methods: {
     ...mapActions({
