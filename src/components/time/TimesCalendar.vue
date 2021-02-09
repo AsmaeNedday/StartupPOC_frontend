@@ -104,8 +104,8 @@ Vue.use(Kalendar)
         scrollToNow: false,
         start_day: new Date().toISOString(),
         read_only: false,
-        day_starts_at: 0,
-        day_ends_at: 24,
+        day_starts_at: 8,
+        day_ends_at: 20,
         overlap: true,
         hide_dates: ['2019-10-31'], // Spooky
         hide_days: [7],
