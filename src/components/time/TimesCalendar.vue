@@ -48,16 +48,30 @@
             <v-icon left large> mdi-autorenew</v-icon>  Update  my  calendar
             </v-btn>
         </v-row>
+         
+        <v-row id="edit" align="center" >
+            <v-btn id="edit-btn" x-large tile block dark>
+            <v-icon left large>mdi-pencil</v-icon>  Generate month pdf
+            </v-btn>
+        </v-row>
+            <div id ="pdf"> 
+                <SelectTime
+                    @generate="generateReport"
+                    @cancel="cancel"
+                ></SelectTime>
+            </div>
     </div>
-    <div id= "mycalendar" v-if="seen_calendar" >
+        <div id= "mycalendar" v-if="seen_calendar" >
         <kalendar :configuration="calendar_settings" :events.sync="events" :key="componentKey">
         </kalendar>
     </div>
+
 </div>
 </template>
 
 <script>
 import Vue from "vue";
+import SelectTime from "@/components/time/SelectTime";
 import { mapActions, mapGetters } from "vuex";
 import { Kalendar } from 'kalendar-vue';
 import PortalVue from 'portal-vue'
@@ -65,7 +79,8 @@ Vue.use(PortalVue);
 Vue.use(Kalendar)
   export default {
     components: {
-        Kalendar
+        Kalendar,
+        SelectTime
     },
     data: () => ({
         selectedTime: '',
@@ -118,6 +133,7 @@ Vue.use(Kalendar)
         getTimes: "time/getTimes",
         createTime: "time/createTime",
         deleteTime: "time/deleteTime",
+        generateMonthlyReport: "time/generateMonthlyReport",
         }),
         showCalendar(){
             this.updateTimes();
@@ -157,7 +173,16 @@ Vue.use(Kalendar)
             this.$swal( 'Click on "Update My Calendar!"',
             'Time deleted!',
             'success');
-        }
+        },
+        generateReport(date){
+            console.log(date);
+            console.log(this.user.userId);
+            let data = {"userId": this.user.userId,"date": date}
+            this.generateMonthlyReport(data);
+        },
+        cancel(){
+            this.operation="";
+        },
     },
   }
 </script>
@@ -169,6 +194,7 @@ Vue.use(Kalendar)
   padding: auto;
   float: left;
   max-width: 60%;
+  height: auto;
 }
 #edit{
     margin-bottom: 3%;
@@ -194,13 +220,20 @@ Vue.use(Kalendar)
     margin-top: 3%;
 }
 #mycalendar{
-    width : 50%;
+    width : 48%;
     margin-right: 10%;
     float: right;
 }
 #editing{
     background-color: rgb(240, 240, 240);
-    padding: 5%;
+    padding: 2%;
 }
+#pdf{
+  width: auto;
+  height: auto;
+  position: relative;
+  padding: 6%;
+  background-color: rgb(240, 240, 240);
 
+}
 </style>
